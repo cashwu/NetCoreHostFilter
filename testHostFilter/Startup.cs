@@ -23,6 +23,12 @@ namespace testHostFilter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddHostFiltering(x =>
+            {
+                x.AllowEmptyHosts = false;
+                x.IncludeFailureMessage = false;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,6 +44,8 @@ namespace testHostFilter
 
             app.UseStaticFiles();
 
+            app.UseHostFiltering();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
